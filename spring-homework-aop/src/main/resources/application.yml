@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    name: spring-homework-app
+  config:
+    import: logback-settings.yml, postgres-settings.yml

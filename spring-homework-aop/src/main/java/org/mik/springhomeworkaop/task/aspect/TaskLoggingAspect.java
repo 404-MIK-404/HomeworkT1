@@ -23,9 +23,9 @@ public class TaskLoggingAspect {
 
     @Around(value = "@annotation(org.mik.springhomeworkaop.task.aspect.annotation.TaskLoggingTracking)")
     public Object loggingTrackingTaskAround(ProceedingJoinPoint joinPoint) {
-        long startProceeded = System.currentTimeMillis();
-        Object proceeded;
         try {
+            long startProceeded = System.currentTimeMillis();
+            Object proceeded;
             proceeded = joinPoint.proceed();
             long endProceeded = System.currentTimeMillis();
             long timeProceeded = endProceeded - startProceeded;
