@@ -1,11 +1,13 @@
-package org.mik.springhomeworkaop.app.entity;
+package org.mik.springhomeworkaop.task.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "task")
 @AllArgsConstructor

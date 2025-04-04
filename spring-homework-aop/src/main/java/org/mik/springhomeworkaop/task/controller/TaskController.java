@@ -1,13 +1,14 @@
 package org.mik.springhomeworkaop.task.controller;
 
 import lombok.AllArgsConstructor;
-import org.mik.springhomeworkaop.app.entity.Task;
+import org.mik.springhomeworkaop.task.mapper.TaskListMapper;
+import org.mik.springhomeworkaop.task.mapper.TaskMapper;
+import org.mik.springhomeworkaop.task.model.dto.TaskDTO;
 import org.mik.springhomeworkaop.task.service.TaskService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,12 +19,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping("/")
-    public List<Task> findAllTask() {
+    public List<TaskDTO> findAllTask() {
         return taskService.listTask();
     }
 
     @GetMapping("/{taskId}")
-    public Task findTaskById(@PathVariable("taskId") Long taskId){
+    public TaskDTO findTaskById(@PathVariable("taskId") Long taskId){
         return taskService.taskById(taskId);
     }
 
@@ -35,13 +36,13 @@ public class TaskController {
     }
 
     @PutMapping("/{taskId}")
-    public Task updateTask(@PathVariable("taskId") Long taskId,@RequestBody Task task) {
-        return taskService.updateTask(taskId,task);
+    public TaskDTO updateTask(@PathVariable("taskId") Long taskId,@RequestBody TaskDTO taskDTO) {
+        return taskService.updateTask(taskId,taskDTO);
     }
 
     @PostMapping("/")
-    public Task createTask(@RequestBody Task task){
-        return taskService.createTask(task);
+    public TaskDTO createTask(@RequestBody TaskDTO taskDTO){
+        return taskService.createTask(taskDTO);
     }
 
 
