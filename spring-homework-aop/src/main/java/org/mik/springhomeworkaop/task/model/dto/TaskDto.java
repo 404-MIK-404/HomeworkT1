@@ -5,16 +5,17 @@ import lombok.*;
 
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskDTO {
+public class TaskDto {
 
     private Long id;
 
     private String title;
 
     private String description;
+
+    private String statusName;
 
     private Long idUser;
 

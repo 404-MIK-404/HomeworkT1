@@ -1,0 +1,18 @@
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: kolin4325@gmail.com
+    # Использовал Google App Password.
+    password: stkcxhznndxbyhlx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  sender:
+    mail:
+      username: fanera4432@gmail.com

@@ -1,7 +1,6 @@
-
 logging:
   file:
     name: logs/log-spring-aop/log-aop.log
   pattern:
-    console: [%d{yyyy-MM-dd HH:mm:ss}] [%level] [%thread] %logger{36} - %msg%n
-    file: [%d{yyyy-MM-dd HH:mm:ss}] [%level] [%thread] %logger{36} - %msg%n
+    console: "[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%thread] %logger{36} - %msg%n"
+    file: "[%d{yyyy-MM-dd HH:mm:ss}] [%level] [%thread] %logger{36} - %msg%n"
