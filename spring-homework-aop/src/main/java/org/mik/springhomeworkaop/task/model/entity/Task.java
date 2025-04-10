@@ -19,12 +19,14 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "title")
     private String title;
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "status_name")
+    private String statusName;
 
     @Column(name = "userid")
     private Long idUser;

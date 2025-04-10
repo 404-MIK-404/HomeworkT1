@@ -1,0 +1,12 @@
+
+org:
+  mik:
+    task:
+      kafka:
+        bootstrap-servers: localhost:9092
+        consumer:
+          group-id: spring-homework-task-status
+          max-poll-records: 10
+          auto-offset-reset: "earliest"
+        topics:
+          task_status_change: spring_homework_task_change_status
