@@ -21,9 +21,9 @@ public class TaskController {
         return taskService.listTask();
     }
 
-    @PutMapping("/{taskId}/status/")
-    public ResponseEntity<Void> updateStatusTask(@PathVariable("taskId") Long taskId,@RequestParam String statusName){
-        taskService.updateStatusTask(taskId,statusName);
+    @PutMapping("/")
+    public ResponseEntity<Void> updateStatusTask(@RequestParam("statusName") String statusName,@RequestBody List<Long> listTaskId) {
+        taskService.updateStatusTask(listTaskId, statusName);
         return ResponseEntity.noContent().build();
     }
 

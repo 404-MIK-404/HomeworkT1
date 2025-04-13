@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -27,7 +28,19 @@ public class KafkaTaskProducer {
             kafkaTemplate.send(topic,data);
             kafkaTemplate.flush();
         } catch (Exception ex) {
-            System.out.println(ex);
         }
     }
+
+
+    public void sendListTo(String topic, List<?> data) {
+        try {
+            for (Object dt : data) {
+                kafkaTemplate.send(topic,dt);
+            }
+            kafkaTemplate.flush();
+        } catch (Exception ex){
+
+        }
+    }
+
 }

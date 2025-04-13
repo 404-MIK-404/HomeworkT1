@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.mik.springhomeworkaop.task.enums.TaskStatusEnum;
 
 @Getter
 @Setter
@@ -25,8 +26,9 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "status_name")
-    private String statusName;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TaskStatusEnum statusName;
 
     @Column(name = "userid")
     private Long idUser;
