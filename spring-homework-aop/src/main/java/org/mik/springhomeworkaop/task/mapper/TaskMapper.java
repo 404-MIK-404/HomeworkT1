@@ -8,6 +8,7 @@ import org.mik.springhomeworkaop.task.model.entity.Task;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
+
     @Mapping(target = "id",source = "task.id")
     @Mapping(target = "title",source = "task.title")
     @Mapping(target = "description",source = "task.description")

@@ -12,7 +12,6 @@ spring:
           auth: true
           starttls:
             enable: true
-
-  sender:
-    mail:
-      username: fanera4432@gmail.com
+    senders:
+      email-from: kolin4325@gmail.com
+      email-to: fanera4432@gmail.com

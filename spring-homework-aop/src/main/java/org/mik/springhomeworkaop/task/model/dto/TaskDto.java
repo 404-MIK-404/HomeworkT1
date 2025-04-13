@@ -2,6 +2,7 @@ package org.mik.springhomeworkaop.task.model.dto;
 
 
 import lombok.*;
+import org.mik.springhomeworkaop.task.enums.TaskStatusEnum;
 
 @Setter
 @Getter
@@ -15,7 +16,7 @@ public class TaskDto {
 
     private String description;
 
-    private String statusName;
+    private TaskStatusEnum statusName;
 
     private Long idUser;
 

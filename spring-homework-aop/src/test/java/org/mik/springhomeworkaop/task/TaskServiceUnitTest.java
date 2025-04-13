@@ -3,6 +3,7 @@ package org.mik.springhomeworkaop.task;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mik.springhomeworkaop.task.enums.TaskStatusEnum;
 import org.mik.springhomeworkaop.task.mapper.TaskListMapper;
 import org.mik.springhomeworkaop.task.mapper.TaskMapper;
 import org.mik.springhomeworkaop.task.model.dto.TaskDto;
@@ -40,19 +41,19 @@ public class TaskServiceUnitTest {
     @DisplayName("Список задач")
     public void testListTask() throws InterruptedException {
         List<Task> listTaskByDefault = Arrays.asList(
-                new Task(2L,"Проверка таска #1","Описание таска","",1000L),
-                new Task(5L,"Проверка таска #5","Описание таска","",1020L),
-                new Task(1L,"Проверка таска #1","Описание таска","",1040L),
-                new Task(777L,"Проверка таска #777","Описание таска","",1000L),
-                new Task(3L,"Проверка таска #3","Описание таска","",13200L)
+                new Task(2L,"Проверка таска #1","Описание таска", TaskStatusEnum.DRAW,1000L),
+                new Task(5L,"Проверка таска #5","Описание таска", TaskStatusEnum.DRAW,1020L),
+                new Task(1L,"Проверка таска #1","Описание таска", TaskStatusEnum.DRAW,1040L),
+                new Task(777L,"Проверка таска #777","Описание таска", TaskStatusEnum.DRAW,1000L),
+                new Task(3L,"Проверка таска #3","Описание таска", TaskStatusEnum.DRAW,13200L)
         );
 
         List<TaskDto> listTaskDto = Arrays.asList(
-                new TaskDto(2L,"Проверка таска #1","Описание таска","",1000L),
-                new TaskDto(5L,"Проверка таска #5","Описание таска","",1020L),
-                new TaskDto(1L,"Проверка таска #1","Описание таска","",1040L),
-                new TaskDto(777L,"Проверка таска #777","Описание таска","",1000L),
-                new TaskDto(3L,"Проверка таска #3","Описание таска","",13200L)
+                new TaskDto(2L,"Проверка таска #1","Описание таска", TaskStatusEnum.DRAW,1000L),
+                new TaskDto(5L,"Проверка таска #5","Описание таска", TaskStatusEnum.DRAW,1020L),
+                new TaskDto(1L,"Проверка таска #1","Описание таска", TaskStatusEnum.DRAW,1040L),
+                new TaskDto(777L,"Проверка таска #777","Описание таска", TaskStatusEnum.DRAW,1000L),
+                new TaskDto(3L,"Проверка таска #3","Описание таска", TaskStatusEnum.DRAW,13200L)
         );
 
         when(taskRepository.findAll()).thenReturn(listTaskByDefault);
@@ -70,8 +71,8 @@ public class TaskServiceUnitTest {
     @Test
     @DisplayName("Поиск таска по ID, ID существует в БД")
     public void testTaskById_WithValidTaskId() {
-        Task task = new Task(32L, "Проверяем таск !", "Тестовое описание","", 320L);
-        TaskDto TaskDto = new TaskDto(32L, "Проверяем таск !", "Тестовое описание","", 320L);
+        Task task = new Task(32L, "Проверяем таск !", "Тестовое описание", TaskStatusEnum.DRAW, 320L);
+        TaskDto TaskDto = new TaskDto(32L, "Проверяем таск !", "Тестовое описание", TaskStatusEnum.DRAW, 320L);
 
         when(taskRepository.findById(32L)).thenReturn(Optional.of(task));
         when(taskMapper.convertEntityToDto(task)).thenReturn(TaskDto);
@@ -96,9 +97,9 @@ public class TaskServiceUnitTest {
     @Test
     @DisplayName("Обновление таска, таск полностью заполнен")
     public void testUpdateTask_WithValidTask() {
-        TaskDto updatedTaskDto = new TaskDto(67L, "Новый", "К-поп","", 44L);
-        Task existingTask = new Task(55L, "Старт", "Оп","", 123L);
-        Task updatedTask = new Task(67L, "Новый", "К-поп","", 44L);
+        TaskDto updatedTaskDto = new TaskDto(67L, "Новый", "К-поп", TaskStatusEnum.DRAW, 44L);
+        Task existingTask = new Task(55L, "Старт", "Оп", TaskStatusEnum.DRAW, 123L);
+        Task updatedTask = new Task(67L, "Новый", "К-поп", TaskStatusEnum.DRAW, 44L);
 
         when(taskRepository.save(updatedTask)).thenReturn(updatedTask);
         when(taskRepository.findById(67L)).thenReturn(Optional.of(existingTask));
@@ -114,9 +115,9 @@ public class TaskServiceUnitTest {
     @Test
     @DisplayName("Обновление таска, таск частично заполнен")
     public void testUpdateTask_WithNotValidTask() {
-        TaskDto updateTaskDto = new TaskDto(22L, "Таск новый", null,"", 122L);
+        TaskDto updateTaskDto = new TaskDto(22L, "Таск новый", null, TaskStatusEnum.DRAW, 122L);
 
-        Task updateTask = new Task(22L, "Таск новый", null,"", 122L);
+        Task updateTask = new Task(22L, "Таск новый", null, TaskStatusEnum.DRAW, 122L);
 
         when(taskMapper.convertDtoToEntity(updateTaskDto)).thenReturn(updateTask);
         when(taskRepository.save(updateTask)).thenThrow(new RuntimeException(""));
@@ -127,9 +128,9 @@ public class TaskServiceUnitTest {
     @Test
     @DisplayName("Создание таска, таск создан")
     public void testCreateTask_WithValidTask() {
-        TaskDto newTaskDto = new TaskDto(365L, "Новый таск", "Новый таск","", 123L);
+        TaskDto newTaskDto = new TaskDto(365L, "Новый таск", "Новый таск", TaskStatusEnum.DRAW, 123L);
 
-        Task newTask = new Task(365L, "Новый таск", "Новый таск","", 123L);
+        Task newTask = new Task(365L, "Новый таск", "Новый таск", TaskStatusEnum.DRAW, 123L);
 
         when(taskMapper.convertEntityToDto(newTask)).thenReturn(newTaskDto);
         when(taskRepository.save(newTask)).thenReturn(newTask);
@@ -143,9 +144,9 @@ public class TaskServiceUnitTest {
     @Test
     @DisplayName("Создание таска, таск частично пустой")
     public void testCreateTask_WithNotValidTask() {
-        TaskDto newTaskDto = new TaskDto(365L, "Новый таск", null,"", 123L);
+        TaskDto newTaskDto = new TaskDto(365L, "Новый таск", null, TaskStatusEnum.DRAW, 123L);
 
-        Task newTask = new Task(365L, "Новый таск", null,"", 123L);
+        Task newTask = new Task(365L, "Новый таск", null, TaskStatusEnum.DRAW, 123L);
 
         when(taskMapper.convertDtoToEntity(newTaskDto)).thenReturn(newTask);
         when(taskRepository.save(newTask)).thenThrow(new RuntimeException(""));
