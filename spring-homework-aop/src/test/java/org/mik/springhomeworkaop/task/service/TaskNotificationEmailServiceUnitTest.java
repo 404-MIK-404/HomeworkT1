@@ -38,7 +38,7 @@ public class TaskNotificationEmailServiceUnitTest {
 
     @Test
     @DisplayName("Тест отправки уведомлений по email о задачах")
-    public void testNotifyTaskByEmail() {
+    public void notifyTaskByEmail_WithValidTaskDto_ResultSendEmail() {
         List<TaskDto> listTaskDto = Arrays.asList(
                 new TaskDto(1L, "Первое задание", "Описание первого задания", TaskStatusEnum.DRAW, 123L),
                 new TaskDto(2L,"Второе задание","Описание второго задания",TaskStatusEnum.SEND,333L)

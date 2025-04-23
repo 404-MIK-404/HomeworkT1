@@ -152,6 +152,16 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <environmentVariables>
+                        <DOCKER_HOST>tcp://192.168.59.103:2375</DOCKER_HOST>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

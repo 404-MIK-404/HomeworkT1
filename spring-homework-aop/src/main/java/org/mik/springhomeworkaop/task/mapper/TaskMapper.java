@@ -16,7 +16,9 @@ public interface TaskMapper {
     @Mapping(target = "description",source = "task.description")
     @Mapping(target = "statusName",source = "task.statusName")
     @Mapping(target = "idUser",source = "task.idUser")
+
     TaskDto convertEntityToDto(Task task);
+
 
 
     @Mapping(target = "id",source = "taskDTO.id")

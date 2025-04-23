@@ -1,4 +1,4 @@
-package org.mik.springhomeworkaop.task.exception.controller;
+package org.mik.springhomeworkaop.task.exception.handler;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;

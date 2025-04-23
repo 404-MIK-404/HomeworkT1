@@ -1,28 +1,26 @@
 package org.mik.springhomeworkaop.task.controller;
 
 
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mik.springhomeworkaop.config.TestEnvConfig;
 import org.mik.springhomeworkaop.task.enums.TaskStatusEnum;
 import org.mik.springhomeworkaop.task.model.dto.TaskDto;
 import org.mik.springhomeworkaop.task.model.entity.Task;
 import org.mik.springhomeworkaop.task.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matcher.*;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -30,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@Import(TestEnvConfig.class)
 public class TaskControllerIntegrationTest {
 
     private final String URL_TASK_API = "/api/tasks";
@@ -38,7 +37,6 @@ public class TaskControllerIntegrationTest {
 
     @Autowired
     private TaskRepository taskRepository;
-
 
     @BeforeEach
     public void initSetUp() {
@@ -49,7 +47,7 @@ public class TaskControllerIntegrationTest {
 
     @Test
     @DisplayName("Тест получения списка задач")
-    public void getListTask() throws Exception {
+    public void getListTask_ReturnOkStatusAndListTask() throws Exception {
         mockMvc.perform(get(URL_TASK_API + "/"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -57,7 +55,7 @@ public class TaskControllerIntegrationTest {
 
     @Test
     @DisplayName("Тест поиск таска по ID, ID существует в БД")
-    public void getTaskById_WithValidId_ReturnTaskDto() throws Exception {
+    public void getTaskById_WithValidId_ReturnStatusOkAndTaskDto() throws Exception {
         List<Task> listTask = taskRepository.findAll();
         Long taskId = listTask.get(listTask.size() - 1).getId();
         mockMvc.perform(get(URL_TASK_API + "/" + taskId))
@@ -68,7 +66,7 @@ public class TaskControllerIntegrationTest {
 
     @Test
     @DisplayName("Тест поиск таска по ID, ID не существует в БД")
-    public void getTaskById_WithNotValidTaskId_ReturnEntityNotFoundException() throws Exception {
+    public void getTaskById_WithNotValidTaskId_ThrowEntityNotFoundException_ReturnStatusNotFound() throws Exception {
         Long taskId = 404L;
         mockMvc.perform(get(URL_TASK_API + "/" + taskId))
                 .andExpect(status().isNotFound())
@@ -78,8 +76,10 @@ public class TaskControllerIntegrationTest {
 
     @Test
     @DisplayName("Тест обновление таска, таск полностью заполнен")
-    public void putUpdateTask_WithValidTask_ReturnUpdateTaskDto() throws Exception {
+    public void putUpdateTask_WithValidTask_ReturnStatusOkAndUpdateTaskDto() throws Exception {
+        Task task = taskRepository.findAll().get(0);
         TaskDto taskDto = new TaskDto(5L,"Интеграционный таск","Описание таска",TaskStatusEnum.DRAW,125L);
+        taskDto.setId(task.getId());
         String jsonTaskDto = new ObjectMapper().writeValueAsString(taskDto);
         mockMvc.perform(put(URL_TASK_API + "/" + taskDto.getId())
                         .contentType(MediaType.APPLICATION_JSON)
