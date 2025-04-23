@@ -1,0 +1,10 @@
+org:
+  mik:
+    task:
+      kafka:
+        consumer:
+          max-poll-records: 10
+          auto-offset-reset: "earliest"
+        topics:
+          task_status_change: test_spring_homework_task_change_status
+          task_status_change_error: test_spring_homework_task_change_status_error

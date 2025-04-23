@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: spring-homework-app
+  config:
+    import: postgres-testing-settings.yml,kafka-testing-settings.yml

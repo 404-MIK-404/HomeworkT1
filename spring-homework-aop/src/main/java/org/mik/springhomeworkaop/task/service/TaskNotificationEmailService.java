@@ -44,7 +44,6 @@ public class TaskNotificationEmailService {
                 .map(taskException-> taskException.getTitle() + "\t" + taskException.getMessage())
                 .collect(Collectors.joining("\n"));
 
-        System.out.println(messageText);
         mailMessageException.setSubject(titleTmp);
 
         mailMessageException.setText(messageText);
