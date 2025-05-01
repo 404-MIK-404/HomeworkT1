@@ -3,4 +3,5 @@ spring:
   application:
     name: spring-homework-app
   config:
-    import: logback-settings.yml, postgres-settings.yml, kafka-settings.yml, email-settings.yml
+    import: logback-settings.yml, postgres-settings.yml,
+      kafka-settings.yml, email-settings.yml, aspect-logging.yml

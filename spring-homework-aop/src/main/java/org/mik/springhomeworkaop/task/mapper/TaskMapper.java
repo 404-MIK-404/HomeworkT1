@@ -9,12 +9,16 @@ import org.mik.springhomeworkaop.task.model.entity.Task;
 public interface TaskMapper {
 
 
+
+
     @Mapping(target = "id",source = "task.id")
     @Mapping(target = "title",source = "task.title")
     @Mapping(target = "description",source = "task.description")
     @Mapping(target = "statusName",source = "task.statusName")
     @Mapping(target = "idUser",source = "task.idUser")
+
     TaskDto convertEntityToDto(Task task);
+
 
 
     @Mapping(target = "id",source = "taskDTO.id")
